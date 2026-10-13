@@ -7,7 +7,7 @@ It generates:
 
 Requires Python 3.10 or above. No external packages are needed.
 
-bash
+'bash'
 python clean_transactions.py Input/input.csv Output/cleaned.csv Output/report.json
 
 Keep `input.csv' in the project folder before running.
