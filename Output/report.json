@@ -1,0 +1,48 @@
+{
+  "input_file": "Input\\input.csv",
+  "output_file": "Output\\cleaned.csv",
+  "input_rows": 73,
+  "valid_rows": 53,
+  "invalid_rows": 20,
+  "reconciliation": {
+    "valid_plus_invalid_equals_input": true,
+    "cleaned_csv_rows_equal_input": 73
+  },
+  "duplicate_counts": {
+    "repeated_transaction_id_groups": 2,
+    "rows_with_repeated_transaction_ids": 4,
+    "possible_duplicate_groups": 1,
+    "possible_duplicate_rows_after_first_occurrence": 2,
+    "all_rows_flagged_as_any_duplicate": 6
+  },
+  "status_counts_all_rows": {
+    "cancelled": 13,
+    "paid": 46,
+    "pending": 13,
+    "refund": 1
+  },
+  "revenue": {
+    "definition": "Sum of amounts for valid rows whose normalized status is paid; invalid rows, duplicates, refunds, pending and cancelled rows are excluded.",
+    "paid_valid_rows_count": 33,
+    "total_revenue": "81851.00",
+    "currency": "not specified in input; values are treated as generic currency units"
+  },
+  "issue_counts": {
+    "amount_not_positive": 3,
+    "invalid_amount_format": 1,
+    "missing_amount": 5,
+    "missing_customer_name": 1,
+    "possible_duplicate_transaction": 2,
+    "repeated_transaction_id": 4,
+    "uninterpretable_date": 4
+  },
+  "assumptions": [
+    "Date output uses YYYY-MM-DD. ISO year-first formats are parsed directly; slash/dash day-first dates are interpreted as DD/MM/YYYY or DD-MM-YYYY. Ambiguous month-first dates are not guessed.",
+    "Names are normalized by collapsing whitespace and title-casing; the exact original name is preserved.",
+    "Commas are treated as thousands separators; currency symbols are removed. Missing, unparsable, zero, and negative amounts are invalid.",
+    "Unknown statuses become 'unknown' and invalidate the row. Common aliases are mapped to the known status set.",
+    "Rows with repeated transaction IDs are all invalid because their conflicting identity cannot be resolved automatically.",
+    "For lookalike duplicates, the first matching row is retained as the reference and later matching rows are marked invalid as possible duplicates.",
+    "Revenue means valid paid transaction amounts only; refunds are excluded rather than netted because refund linkage is not supplied."
+  ]
+}
